@@ -1,6 +1,6 @@
 # learningDesignPatterns
 
-The code is associated with a class diagram created via umlet http://www.umlet.com/
+The samples are in PHP and is associated with a class diagram made via umlet http://www.umlet.com/
 
 references:
 
