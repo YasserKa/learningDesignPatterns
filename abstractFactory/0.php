@@ -8,78 +8,78 @@ interface AreaFactory {
 # List of Platforms
 class Volcano implements AreaFactory {
 
-		public function startEvent(): Event {
-				return new CollectFireGlobs();
-		}
-		public function spawnMonster(): Monster {
-				return new Lava();
-		}
+	public function startEvent(): Event {
+			return new CollectFireGlobs();
+	}
+	public function spawnMonster(): Monster {
+			return new Lava();
+	}
 }
 
 
 class Swamp implements AreaFactory {
 
-		public function startEvent(): Event {
-				return new HideFromTHeQueen();
-		}
-		public function spawnMonster(): Monster {
-				return new MutatedFrog();
-		}
+	public function startEvent(): Event {
+			return new HideFromTHeQueen();
+	}
+	public function spawnMonster(): Monster {
+			return new MutatedFrog();
+	}
 }
 
 
 class Town implements AreaFactory {
 
-		public function startEvent(): Event {
-				return new CatchTheTheif();
-		}
-		public function spawnMonster(): Monster {
-				return new Spy();
-		}
+	public function startEvent(): Event {
+			return new CatchTheTheif();
+	}
+	public function spawnMonster(): Monster {
+			return new Spy();
+	}
 }
 
 # Interfaces acting as components for the platforms
 interface Event {
-		public function goal();
+	public function goal();
 }
 
 interface Monster {
-		public function attack();
+	public function attack();
 }
 
 # Components for each platform
 class CollectFireGlobs implements Event {
-		public function goal() {
-				echo 'Collect 10 fire globs for the ironsmith';
-		}
+	public function goal() {
+		echo 'Collect 10 fire globs for the ironsmith';
+	}
 }
 
 class HideFromTheQueen implements Event {
-		public function goal() {
-				echo 'Hide from Queen Zelda who you betrayed because of your beloved Maria';
-		}
+	public function goal() {
+		echo 'Hide from Queen Zelda who you betrayed because of your beloved Maria';
+	}
 }
 class CatchTheTheif implements Event {
-		public function goal() {
-				echo 'Catch the theif who stole your holy sword';
-		}
+	public function goal() {
+		echo 'Catch the theif who stole your holy sword';
+	}
 }
 
 class Lava implements Monster {
-		public function attack() {
-				echo 'Flaming breathe!';
-		}
+	public function attack() {
+		echo 'Flaming breathe!';
+	}
 }
 
 class MutatedFrog implements Monster {
-		public function attack() {
-				echo 'Toxic saliva!';
-		}
+	public function attack() {
+		echo 'Toxic saliva!';
+	}
 }
 class Spy implements Monster {
-		public function attack() {
-				echo 'Poisonous knives!';
-		}
+	public function attack() {
+		echo 'Poisonous knives!';
+	}
 }
 
 # Platforms as enums
@@ -96,39 +96,37 @@ class Arenas {
 
 function createArena($arena) {
 
-		$arenaFactory = null;
-		switch($arena) { 
-			case(Arenas::VOLCANO):
-					$arenaFactory = new Volcano();
-					break;
-			case(Arenas::SWAMP):
-					$arenaFactory = new Swamp();
-					break;
-			case(Arenas::TOWN):
-					$arenaFactory = new Town();
-					break;
-			default:
-					
-		}
-			return $arenaFactory;	
-		
+	$arenaFactory = null;
+	switch($arena) { 
+	case(Arenas::VOLCANO):
+		$arenaFactory = new Volcano();
+		break;
+	case(Arenas::SWAMP):
+		$arenaFactory = new Swamp();
+		break;
+	case(Arenas::TOWN):
+		$arenaFactory = new Town();
+		break;
+	default:
+
+	}
+	return $arenaFactory;	
+
 }
 
 
 function getInput() {
 
 	$arenas = Arenas::getConstants();
-	var_dump($arenas);
 	$total = count($arenas);
 
 	echo 'Select the desired Arena:'.PHP_EOL;
 	while(true) {
 		foreach($arenas as $key => $value) {
 			echo $value.'- '. $key.PHP_EOL;
-
 		}
 		$input = (int)readline('Select your desired arena using its number: ');
-		
+
 		if(is_int($input) && $input >= 0 && $input < $total) {
 			echo 'here';
 			return $input;
