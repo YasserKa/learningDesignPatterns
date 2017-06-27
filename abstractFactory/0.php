@@ -1,120 +1,154 @@
 <?php
 
-interface SeasonFactory {
-	public function CreateClothing(): Clothing;
-	public function CreateActivity(): Activity;
+interface AreaFactory {
+	public function startEvent(): Event;
+	public function spawnMonster(): Monster;
 }
 
 # List of Platforms
-class Winter implements SeasonFactory {
+class Volcano implements AreaFactory {
 
-		public function CreateClothing(): Clothing {
-				return new WinterClothing();
+		public function startEvent(): Event {
+				return new CollectFireGlobs();
 		}
-		public function CreateActivity(): Activity {
-				return new WinterActivity();
-		}
-}
-
-class Spring implements SeasonFactory {
-
-		public function CreateClothing(): Clothing {
-				return new SpringClothing();
-		}
-		public function CreateActivity(): Activity {
-				return new SpringActivity();
+		public function spawnMonster(): Monster {
+				return new Lava();
 		}
 }
 
-class Summer implements SeasonFactory {
 
-		public function CreateClothing(): Clothing {
-				return new SummerClothing();
+class Swamp implements AreaFactory {
+
+		public function startEvent(): Event {
+				return new HideFromTHeQueen();
 		}
-		public function CreateActivity(): Activity {
-				return new SummerActivity();
+		public function spawnMonster(): Monster {
+				return new MutatedFrog();
+		}
+}
+
+
+class Town implements AreaFactory {
+
+		public function startEvent(): Event {
+				return new CatchTheTheif();
+		}
+		public function spawnMonster(): Monster {
+				return new Spy();
 		}
 }
 
 # Interfaces acting as components for the platforms
-interface Clothing {
-		public function wear();
+interface Event {
+		public function goal();
 }
 
-interface Activity {
-		public function doActivity();
+interface Monster {
+		public function attack();
 }
 
 # Components for each platform
-class WinterClothing implements Clothing {
-		public function wear() {
-				echo 'Warm clothes!';
+class CollectFireGlobs implements Event {
+		public function goal() {
+				echo 'Collect 10 fire globs for the ironsmith';
 		}
 }
 
-class SummerClothing implements Clothing {
-		public function wear() {
-				echo 'Underwear!';
+class HideFromTheQueen implements Event {
+		public function goal() {
+				echo 'Hide from Queen Zelda who you betrayed because of your beloved Maria';
+		}
+}
+class CatchTheTheif implements Event {
+		public function goal() {
+				echo 'Catch the theif who stole your holy sword';
 		}
 }
 
-class SpringClothing implements Clothing {
-		public function wear() {
-				echo 'Colorful clothes?!';
+class Lava implements Monster {
+		public function attack() {
+				echo 'Flaming breathe!';
 		}
 }
 
-class WinterActivity implements Activity {
-		public function doActivity() {
-				echo 'Skiing!';
+class MutatedFrog implements Monster {
+		public function attack() {
+				echo 'Toxic saliva!';
 		}
 }
-
-class SummerActivity implements Activity {
-		public function doActivity() {
-				echo 'Swimming!';
-		}
-}
-
-class SpringActivity implements Activity {
-		public function doActivity() {
-				echo 'Smelling flowers?!';
+class Spy implements Monster {
+		public function attack() {
+				echo 'Poisonous knives!';
 		}
 }
 
 # Platforms as enums
-class Seasons {
-	const SUMMER = 0;		
-    const SPRING = 1;		
-	const WINTER = 2;		
+class Arenas {
+	const VOLCANO = 0;		
+    const SWAMP = 1;		
+	const TOWN = 2;		
+
+  static function getConstants() {
+        $oClass = new ReflectionClass(__CLASS__);
+        return $oClass->getConstants();
+    }
 }
 
-function seasonCreation($season) {
+function createArena($arena) {
 
-		$seasonFactory = null;
-		switch($season) { 
-			case(Seasons::SUMMER):
-					$seasonFactory = new Summer();
+		$arenaFactory = null;
+		switch($arena) { 
+			case(Arenas::VOLCANO):
+					$arenaFactory = new Volcano();
 					break;
-			case(Seasons::SPRING):
-					$seasonFactory = new Spring();
+			case(Arenas::SWAMP):
+					$arenaFactory = new Swamp();
 					break;
-			case(Seasons::WINTER):
-					$seasonFactory = new Winter();
+			case(Arenas::TOWN):
+					$arenaFactory = new Town();
 					break;
 			default:
-					break;
+					
 		}
-			return $seasonFactory;	
+			return $arenaFactory;	
 		
 }
 
-# Choose the platform
-$currentSeason = seasonCreation(Seasons::WINTER);
 
-# Generate its componentsk
-$clothing = $currentSeason->CreateClothing();
-$activity = $currentSeason->CreateActivity();
+function getInput() {
 
-$clothing->wear();
-$activity->doActivity();
+	$arenas = Arenas::getConstants();
+	var_dump($arenas);
+	$total = count($arenas);
+
+	echo 'Select the desired Arena:'.PHP_EOL;
+	while(true) {
+		foreach($arenas as $key => $value) {
+			echo $value.'- '. $key.PHP_EOL;
+
+		}
+		$input = (int)readline('Select your desired arena using its number: ');
+		
+		if(is_int($input) && $input >= 0 && $input < $total) {
+			echo 'here';
+			return $input;
+		}
+	}
+}
+
+function main() {
+
+	$arena = getInput();
+	$currentArena = createArena($arena);
+
+	# Generate its components
+	$event = $currentArena->startEvent();
+	$monster = $currentArena->spawnMonster();
+
+	$event->goal();
+	echo PHP_EOL;
+	$monster->attack();
+	echo PHP_EOL;
+}
+
+main();
