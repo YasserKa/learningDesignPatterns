@@ -2,79 +2,87 @@
 
 abstract class Monster {
 
-		abstract public function getAbility(): string;
-		abstract public function getName(): string;
+	abstract public function getAbility(): string;
+	abstract public function getName(): string;
 
-		public function getDescription() {
-				return 'The monster name is '.$this->getName().
-						' and his ability is '.$this->getAbility();
-		}
+	public function getDescription() {
+		return 'The monster name is '.$this->getName().
+			' and his ability is '.$this->getAbility();
+	}
 }
 
 class FlyingMonster extends Monster {
 
-		private $name;
-		private $ability;
+	private $name;
+	private $ability;
 
-		public function __construct($name, $ability) {
-				$this->name = $name;
-				$this->ability = $ability;
-		}
+	public function __construct($name, $ability) {
+		$this->name = $name;
+		$this->ability = $ability;
+	}
 
-		public function getName(): string {
-				return $this->name;
-		}
+	public function getName(): string {
+		return $this->name;
+	}
 
-		public function getAbility(): string {
-				return $this->ability;
-		}
+	public function getAbility(): string {
+		return $this->ability;
+	}
+
+	public function fly() {
+		echo $this->name.' is flying!';
+	}
 
 }
 
 
 class SwimmingMonster extends Monster{
 
-		private $name;
-		private $ability;
+	private $name;
+	private $ability;
 
-		public function __construct($name, $ability) {
-				$this->name = $name;
-				$this->ability = $ability;
-		}
+	public function __construct($name, $ability) {
+		$this->name = $name;
+		$this->ability = $ability;
+	}
 
-		public function getName(): string {
-				return $this->name;
-		}
+	public function getName(): string {
+		return $this->name;
+	}
 
-		public function getAbility(): string {
-				return $this->ability;
-		}
+	public function getAbility(): string {
+		return $this->ability;
+	}
+
+	public function swim() {
+		echo $this->name.' is swimming';
+	}
 }
 
-class MonsterTypes {
-
-		const FLYING = 0;
-		const SWIMMING = 1;
+class MonsterType {
+	const FLYING = 0;
+	const SWIMMING = 1;
 }
 class MonsterFactory {
-		public static function instantiateMonster($monsterType, $name, $ability): Monster {
-				switch($monsterType){
-						case MonsterTypes::FLYING:
-								return new FlyingMonster($name, $ability);
-								break;
-						case MonsterTypes::SWIMMING:
-								return new SwimmingMonster($name, $ability);
-								break;
-				}
-				return null;
+	public static function instantiateMonster($monsterType, $name, $ability): Monster {
+		switch($monsterType){
+		case MonsterType::FLYING:
+			return new FlyingMonster($name, $ability);
+			break;
+		case MonsterType::SWIMMING:
+			return new SwimmingMonster($name, $ability);
+			break;
 		}
+		return null;
+	}
 }
 
 function main() {
-		$flyingMonster = MonsterFactory::instantiateMonster(MonsterTypes::FLYING, 'anivia', 'snowballs');
-		$swimmingMonster = MonsterFactory::instantiateMonster(MonsterTypes::SWIMMING, 'reksai', 'tunnelOfDoom');
-		echo $flyingMonster->getDescription().PHP_EOL;
-		echo $swimmingMonster->getDescription().PHP_EOL;
+	$flyingMonster = MonsterFactory::instantiateMonster(MonsterType::FLYING, 'anivia', 'snowballs');
+	$swimmingMonster = MonsterFactory::instantiateMonster(MonsterType::SWIMMING, 'reksai', 'tunnelOfDoom');
+	echo $flyingMonster->getDescription().PHP_EOL;
+	echo $swimmingMonster->getDescription().PHP_EOL;
+	$flyingMonster->fly();
 }
 
 main();

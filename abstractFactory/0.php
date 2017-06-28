@@ -83,7 +83,7 @@ class Spy implements Monster {
 }
 
 # Platforms as enums
-class Arenas {
+class Arena {
 	const VOLCANO = 0;		
     const SWAMP = 1;		
 	const TOWN = 2;		
@@ -98,13 +98,13 @@ function createArena($arena) {
 
 	$arenaFactory = null;
 	switch($arena) { 
-	case(Arenas::VOLCANO):
+	case(Arena::VOLCANO):
 		$arenaFactory = new Volcano();
 		break;
-	case(Arenas::SWAMP):
+	case(Arena::SWAMP):
 		$arenaFactory = new Swamp();
 		break;
-	case(Arenas::TOWN):
+	case(Arena::TOWN):
 		$arenaFactory = new Town();
 		break;
 	default:
@@ -117,7 +117,7 @@ function createArena($arena) {
 
 function getInput() {
 
-	$arenas = Arenas::getConstants();
+	$arenas = Arena::getConstants();
 	$total = count($arenas);
 
 	echo 'Select the desired Arena:'.PHP_EOL;
@@ -127,8 +127,7 @@ function getInput() {
 		}
 		$input = (int)readline('Select your desired arena using its number: ');
 
-		if(is_int($input) && $input >= 0 && $input < $total) {
-			echo 'here';
+		if($input >= 0 && $input < $total) {
 			return $input;
 		}
 	}

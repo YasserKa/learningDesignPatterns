@@ -1,87 +1,109 @@
 <?php
 
-class Car {
+class Race {
+	const ELF = 0;
+	const CHARR = 1;
+	const HUMAN = 2; 
+}
 
-	private $color;
-	private $speed;
+class Profession {
+	const RANGER = 0;
+	const MESMER = 1;
+	const WARRIOR = 3;
+}
+
+class Character {
+
+	private $race;
+	private $profession;
+	private $name;
 
 	function __construct() {
+	}
+
+	public function getRace() {
+		return $this->race;
+	}
+
+	public function getProfession() {
+		return $this->profession;
+	}
 	
+	public function getName() {
+		return $this->name;
 	}
 
-	public function getColor() {
-		return $this->color;
-	}
-	
-	public function getSpeed() {
-		return $this->speed;
+	public function setRace($race) {
+			$this->race = $race;
 	}
 
-	public function setColor($color) {
-			$this->color = $color;
+	public function setProfession($profession) {
+			$this->profession = $profession;
 	}
 
-	public function setSpeed($speed) {
-			$this->speed = $speed;
+	public function setName($name) {
+			$this->name = $name;
 	}
 }
 
-class Colors {
+interface CharacterBuilder {
 
-		const RED = 0;
-		const BLUE = 1;
-		const WHITE = 2;
-		const DARK = 3;
+		function setRace($race);
+		function setProfession($profession); 
+		function setName($name);
+		function generate(): Character;
 }
 
-interface CarBuilder {
+class CharacterBuilderImp implements CharacterBuilder {
 
-		function setColor($color);
-		function setSpeed($speed); 
-		function build(): Car;
-}
-
-class CarBuilderImpl implements CarBuilder {
-
- 		private $car;
+ 		private $character;
 
         public function __construct() {
-				$this->car = new Car();
+				$this->character = new Character();
 		}
-		public function setColor($color) {
-				$this->car->setColor($color);
+
+		public function setRace($race) {
+				$this->character->setRace($race);
 				return $this;
 		}
-		public function setSpeed($speed) {
-				$this->car->setSpeed($speed);
+
+		public function setProfession($profession) {
+				$this->character->setProfession($profession);
 				return $this;
 		}
-		public function build(): Car{
-				return $this->car;
+
+		public function setName($name) {
+				$this->character->setName($name);
+				return $this;
+		}
+
+		public function generate(): Character {
+				return $this->character;
 		}
 }
 
-class CarBuilderDirector {
+class ElfWarriorGenerator {
 
-		private $carBuilder;
+		private $characterBuilder;
 
-		function __construct($carBuilder) {
-			$this->carBuilder = $carBuilder;		
+		function __construct($characterBuilder) {
+			$this->characterBuilder = $characterBuilder;		
 		}
 
 		function make() {
-			return $this->carBuilder->setSpeed(10)
-							        ->setColor(Colors::BLUE)
-									->build();
+			return $this->characterBuilder->setRace(Race::ELF)
+										     ->setProfession(Profession::WARRIOR)
+										     ->setName('Angela')
+										     ->generate();
 		}
 }
 
 function main() {
 
-	$carBuilder = new CarBuilderImpl();
-	$carBuilderDirector = new CarBuilderDirector($carBuilder);
-	$car = $carBuilderDirector->make();
-	var_dump($car);
+	$characterBuilder = new characterBuilderImp();
+	$elfWarriorGenerator = new ElfWarriorGenerator($characterBuilder);
+	$character = $elfWarriorGenerator->make();
+	var_dump($character);
 }
 
 main();
