@@ -1,36 +1,36 @@
 <?php
 
-interface AreaFactory 
+interface AreaFactory
 {
 	public function startEvent(): Event;
 	public function spawnMonster(): Monster;
 }
 
 # List of Platforms
-class Volcano implements AreaFactory 
+class Volcano implements AreaFactory
 {
-	public function startEvent(): Event 
+	public function startEvent(): Event
 	{
-			return new CollectFireGlobs();
+		return new CollectFireGlobs();
 	}
 
-	public function spawnMonster(): Monster 
+	public function spawnMonster(): Monster
 	{
-			return new Lava();
+		return new Lava();
 	}
 }
 
 
-class Swamp implements AreaFactory 
+class Swamp implements AreaFactory
 {
-	public function startEvent(): Event 
+	public function startEvent(): Event
 	{
-			return new HideFromTHeQueen();
+		return new HideFromTHeQueen();
 	}
 
 	public function spawnMonster(): Monster 
 	{
-			return new MutatedFrog();
+		return new MutatedFrog();
 	}
 }
 
@@ -39,12 +39,12 @@ class Town implements AreaFactory
 {
 	public function startEvent(): Event 
 	{
-			return new CatchTheTheif();
+		return new CatchTheTheif();
 	}
 
 	public function spawnMonster(): Monster 
 	{
-			return new Spy();
+		return new Spy();
 	}
 }
 
@@ -75,6 +75,7 @@ class HideFromTheQueen implements Event
 		echo 'Hide from Queen Zelda who you betrayed because of your beloved Maria';
 	}
 }
+
 class CatchTheTheif implements Event 
 {
 	public function goal() 
@@ -98,6 +99,7 @@ class MutatedFrog implements Monster
 		echo 'Toxic saliva!';
 	}
 }
+
 class Spy implements Monster 
 {
 	public function attack() 
@@ -110,14 +112,14 @@ class Spy implements Monster
 class Arena 
 {
 	const VOLCANO = 0;		
-    const SWAMP = 1;		
-	const TOWN = 2;		
+	const SWAMP   = 1;		
+	const TOWN    = 2;		
 
 	static function getConstants() 
 	{
-        $oClass = new ReflectionClass(__CLASS__);
-        return $oClass->getConstants();
-    }
+		$oClass = new ReflectionClass(__CLASS__);
+		return $oClass->getConstants();
+	}
 }
 
 function createArena($arena) 
@@ -169,9 +171,11 @@ function main()
 	# Generate its components
 	$event = $currentArena->startEvent();
 	$monster = $currentArena->spawnMonster();
-
+	
+	echo 'Event: ';
 	$event->goal();
 	echo PHP_EOL;
+	echo 'Monster attack: ';
 	$monster->attack();
 	echo PHP_EOL;
 }

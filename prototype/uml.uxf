@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>4</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>64</x>
+      <y>508</y>
+      <w>96</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>RedMinion
+-
+__clone(): void
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>188</x>
+      <y>508</y>
+      <w>96</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>BlueMinion
+-
+__clone(): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>132</x>
+      <y>436</y>
+      <w>96</w>
+      <h>52</h>
+    </coordinates>
+    <panel_attributes>/Minion/
+-
+#type: int
+#name: string
+-
+/__clone(): void/
++getType(): int
++getName(): string
++setName(name: string): string
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>0</x>
+      <y>532</y>
+      <w>56</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>Type set to red
+when instantiated</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>288</x>
+      <y>536</y>
+      <w>56</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>Type set to blue
+when instantiated</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>264</x>
+      <y>520</y>
+      <w>64</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;140.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>28</x>
+      <y>516</y>
+      <w>52</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>110.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+</diagram>

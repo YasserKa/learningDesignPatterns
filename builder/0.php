@@ -11,7 +11,7 @@ class Profession
 {
 	const RANGER = 0;
 	const MESMER = 1;
-	const WARRIOR = 3;
+	const WARRIOR = 2;
 }
 
 class Character 
