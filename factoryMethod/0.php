@@ -1,7 +1,7 @@
 <?php
 
-abstract class Monster {
-
+abstract class Monster 
+{
 	abstract public function getAbility(): string;
 	abstract public function getName(): string;
 
@@ -11,61 +11,74 @@ abstract class Monster {
 	}
 }
 
-class FlyingMonster extends Monster {
+class FlyingMonster extends Monster 
+{
 
 	private $name;
 	private $ability;
 
-	public function __construct($name, $ability) {
+	public function __construct($name, $ability) 
+	{
 		$this->name = $name;
 		$this->ability = $ability;
 	}
 
-	public function getName(): string {
+	public function getName(): string 
+	{
 		return $this->name;
 	}
 
-	public function getAbility(): string {
+	public function getAbility(): string 
+	{
 		return $this->ability;
 	}
 
-	public function fly() {
+	public function fly() 
+	{
 		echo $this->name.' is flying!';
 	}
-
 }
 
 
-class SwimmingMonster extends Monster{
-
+class SwimmingMonster extends Monster
+{
 	private $name;
 	private $ability;
 
-	public function __construct($name, $ability) {
+	public function __construct($name, $ability) 
+	{
 		$this->name = $name;
 		$this->ability = $ability;
 	}
 
-	public function getName(): string {
+	public function getName(): string 
+	{
 		return $this->name;
 	}
 
-	public function getAbility(): string {
+	public function getAbility(): string 
+	{
 		return $this->ability;
 	}
 
-	public function swim() {
+	public function swim() 
+	{
 		echo $this->name.' is swimming';
 	}
 }
 
-class MonsterType {
+class MonsterType 
+{
 	const FLYING = 0;
 	const SWIMMING = 1;
 }
-class MonsterFactory {
-	public static function instantiateMonster($monsterType, $name, $ability): Monster {
-		switch($monsterType){
+
+class MonsterFactory 
+{
+	public static function instantiateMonster($monsterType, $name, $ability): Monster 
+	{
+		switch($monsterType)
+		{
 		case MonsterType::FLYING:
 			return new FlyingMonster($name, $ability);
 			break;
@@ -77,7 +90,8 @@ class MonsterFactory {
 	}
 }
 
-function main() {
+function main() 
+{
 	$flyingMonster = MonsterFactory::instantiateMonster(MonsterType::FLYING, 'anivia', 'snowballs');
 	$swimmingMonster = MonsterFactory::instantiateMonster(MonsterType::SWIMMING, 'reksai', 'tunnelOfDoom');
 	echo $flyingMonster->getDescription().PHP_EOL;
